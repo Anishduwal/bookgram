@@ -7,5 +7,8 @@ from django.contrib.auth import get_user_model
 class Book(models.Model):
     title = models.CharField(max_length=50)
     name = models.CharField(max_length=50)
-    desciption = models.CharField(max_length=50)
-    date = models.DateTimeField()
+    description = models.CharField(max_length=50)
+    date = models.DateTimeField(auto_now = True)
+
+    def __str__(self):
+        return self.title

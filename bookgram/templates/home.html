@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Gram</title>
+    <style>
+        p{
+            text-align: center;
+        }
+        .singlebook{
+            width:80%;margin:0 auto;border:2px solid orange;background:black;color:white; padding:5px;
+        }
+    </style>
 </head>
 <body>
     <h2>Welcome to Webpage</h2>
@@ -11,14 +19,28 @@
     <li>Contact Us</li>
     <li>Login</li>
     <li>SignUp</li>
-    <form>
+    <form method="POST">
+        {% csrf_token %}
         <label for="name">Full name:</label><br>
-        <input type="text" id="name" name="name"><br>
+        <input type="text" id="name" name="name" required><br>
         <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title"><br>
+        <input type="text" id="title" name="title" required><br>
         <label for="desc">Description:</label><br>
-        <input type="text" id="desc" name="desc"><br><br>
+        <input type="text" id="desc" name="desc" required><br><br>
         <input type="submit" value="Submit">
     </form>
+
+    <main>
+        {% for book in books %}
+        <div class="singlebook">
+            <h2 style="text-align:center">{{ book.title }}</h2>
+            <strong>-- {{ book.name }}</strong>
+            <p>{{ book.description }}</p>
+            <a href="{% url 'update' book.id %}" style="padding:10px;background:blue;color:white">Update</a>
+            <a href="{% url 'delete' book.id %}" style="padding:10px;background:red;color:white" onclick="confirm('You sure ? want to del..')">Delete</a>
+
+        </div>
+        {% endfor %}
+    </main>
 </body>
 </html>
